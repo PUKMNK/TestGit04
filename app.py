@@ -30,8 +30,26 @@ encrypted_result = encrypt_answers(answers)
 # Print the original, reduced, and restored answers
 original_answer = answers
 reduced_answer = encrypted_result
-restored_answer = original_answer
 
 print("Original Answer:", original_answer)
 print("Reduced Answer:", reduced_answer)
+
+# Create a reverse mapping dictionary
+reverse_pair_mapping = {v: k for k, v in pair_mapping.items()}
+
+def decrypt_answers(encrypted_answers):
+    decrypted_answers = []
+
+    # Split the encrypted answers string into a list
+    encrypted_list = encrypted_answers.split()
+
+    # Iterate through the encrypted list
+    for char in encrypted_list:
+        # Lookup the char in the reverse mapping dictionary and add the result to the decrypted_answers list
+        decrypted_answers.append(reverse_pair_mapping.get(char, char))
+
+    return ''.join(decrypted_answers)
+
+restored_answer = decrypt_answers(reduced_answer)
 print("Restored Answer:", restored_answer)
+
