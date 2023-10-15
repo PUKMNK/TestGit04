@@ -1,0 +1,300 @@
+import walletapp.app as app
+if __name__ == '__main__':
+#    app.ex01()
+#    app.ex02()
+#    app.ex03()
+#    app.ex04()
+     app.ex05()
+
+
+
+
+#Linkedlist
+def ex01():
+    class subject:
+        def __init__(self,name,code):
+            self.course_name = name
+            self.course_code = code
+
+    class Nodesubject:
+        def __init__(self,value=None):
+            self.value = value
+            self.next = None
+
+    class linkedlistsubject:
+        def __init__(self):
+            self.first_node = None
+            self.size = 0
+
+        def append(self, node):
+            if self.first_node is None:
+                self.first_node = node
+
+            else:
+                current_node = self.first_node
+                while not (current_node.next is None):
+                    current_node = current_node.next
+
+                current_node.next = node
+            self.size += 1
+
+        def list(self):
+            result = ''
+            if self.first_node is None:
+                result = 'Empty Student Lists'
+            else:
+                current_node = self.first_node
+                while not (current_node.next is None):
+                    result = result + current_node.value.course_name + ' ' + current_node.value.course_code + ', '
+                    current_node = current_node.next
+                result = result + current_node.value.course_name + ' ' + current_node.value.course_code
+            return result
+
+    subject1 = subject("Structure", "BDM1111")
+    subject2 = subject("Esport", "BDM2222")
+    subject3 = subject("Big Data", "BDM3333")
+    my_linkedlist = linkedlistsubject()
+    node_subject01 = Nodesubject(subject1)
+    node_subject02 = Nodesubject(subject2)
+    node_subject03 = Nodesubject(subject3)
+    my_linkedlist.append(node_subject01)
+    my_linkedlist.append(node_subject02)
+    my_linkedlist.append(node_subject03)
+    print(my_linkedlist.list())
+
+#Queue Stack
+def ex02():
+
+    from queue import Queue, LifoQueue
+
+    def run_q():
+
+
+        q = Queue(maxsize=4)
+        q.put(11)  # Python built-in use "put" for Enqueue
+        q.put(12)
+        q.put(13)
+        q.put(14)
+
+        print(q.get())  # Python built-in use "get" for Dequeue
+        print(q.get())
+        print(q.get())
+        print(q.get())
+
+        print('Number of elements in a queue:' + str(q.qsize()))
+
+    def run_stack():
+
+
+        stack = LifoQueue(maxsize=3)
+        stack.put(11)  # Python built-in use "tut" for Push
+        stack.put(12)
+        stack.put(13)
+
+        print(stack.get())  # Python built-in use "Get" for Dequeue
+        print(stack.get())
+        print(stack.get())
+
+        print('Number of elements in a stack:' + str(stack.qsize()))
+
+    run_q()
+    run_stack()
+
+#Monte Carlo
+def ex03():
+    import random
+    nums_simulation = 10000
+    fixed_cost = 5000
+    def market_condition():
+        unit = 0
+        price = 0
+        condition = random.randint(1,3)
+        #good
+        if condition == 1:
+            unit = 10000
+            price = 10
+        #fair
+        elif condition == 2:
+            unit = 7500
+            price = 7.5
+        #worst
+        else:
+            unit = 5000
+            price = 5
+        return unit, price
+    def situation():
+        cost = 0
+        cost_situation = random.randint(1,3)
+        if cost_situation == 1:
+            cost = 5
+        elif cost_situation == 2:
+            cost = 2.5
+        else:
+            cost = 1.5
+        return cost
+
+    total = 0
+    for x in range(0,nums_simulation):
+        unit, price = market_condition()
+        cost = situation()
+        profit = ((price-cost)*unit)-fixed_cost
+        total += profit
+
+    print('Average profit: ' + "{0:,.2f}".format(total / nums_simulation))
+
+#Different probabilities and Time-in Time-out Threshold ”
+def ex04():
+    import random
+    # Different probabilities and Time-in Time-out Threshold
+    def my_scenario():
+         # scenario_a = 15%
+         # scenario_b = 15%
+         # scenario_c = 40%
+         # scenario_d = 30%
+
+        condition = random.randint(1,20)
+
+        if condition in [1,2,3,4]:
+            return 'a'
+        elif condition in [5,6,7,8]:
+            return 'b'
+        elif condition in [9,10,11,12,13,14,15,16]:
+            return 'c'
+        else:
+            return 'd'
+
+    def random_with_prob():
+        #generate result 10,000 time and count
+        count_a = 0
+        count_b = 0
+        count_c = 0
+        count_d = 0
+
+        for x in range(0,10000):
+            result = my_scenario()
+            if result == 'a':
+                count_a += 1
+            elif result == 'b':
+                count_b += 1
+            elif result == 'c':
+                count_c += 1
+            else:
+                count_d += 1
+
+        print('a: ' + str(count_a))
+        print('b: ' + str(count_b))
+        print('c: ' + str(count_c))
+        print('d: ' + str(count_d))
+
+    def working_hour(time_in, time_out):
+        #  Format xx:xx
+        #1 Time-in cut-off 15-minute after
+        #2 Time-out cut-off 15-minute before
+        #3 Error if time-out before or equal time-in
+
+        in_hour = int(time_in[0:2])
+        in_minute = int(time_in[3:5])
+        if in_minute <= 15:
+            in_minute = 15
+        elif in_minute <= 30:
+            in_minute = 30
+        elif in_minute <= 45:
+            in_minute = 45
+        else:
+            in_minute = 0
+            in_hour += 1
+
+        print(in_hour)
+        print(in_minute)
+
+        out_hour = int(time_out[0:2])
+        out_minute = int(time_out[3:5])
+        if out_minute <= 15:
+            out_minute = 0
+        elif out_minute <= 30:
+            out_minute = 15
+        elif out_minute <= 45:
+            out_minute = 30
+        else:
+            out_minute = 45
+
+        print(out_hour)
+        print(out_minute)
+
+        duration_minute = ((out_hour * 60) + out_minute) - ((in_hour * 60) + in_minute)
+
+        if duration_minute <= 0:
+            return 'Error!!'
+
+        str_hour = str(duration_minute // 60) + ' hour(s)'
+        if duration_minute < 60:
+            str_hour = ''
+
+        str_minute = str(duration_minute - (duration_minute // 60)*60) + ' minute(s)'
+        if duration_minute - (duration_minute // 60) == 0:
+            str_minute = ''
+
+        return str_hour + ' ' + str_minute
+
+
+    def timein_timeout():
+        print(working_hour('08:00','16:47'))
+
+    print(random_with_prob())
+    print(timein_timeout())
+
+#assignment2
+# Define a mapping dictionary for the pairs
+pair_mapping = {
+    'aa': 'A', 'ab': 'B', 'ac': 'C', 'ad': 'D',
+    'ba': 'E', 'bb': 'F', 'bc': 'G', 'bd': 'H',
+    'ca': 'I', 'cb': 'J', 'cc': 'K', 'cd': 'L',
+    'da': 'M', 'db': 'N', 'dc': 'O', 'dd': 'P'
+}
+
+# Input list of answers
+answers = "acbdacbcbadcbbadcbdbcbbadcadcbcabdcbadcbdcab"
+
+
+# Function to encrypt the answers
+def encrypt_answers(answers):
+    encrypted_answers = []
+
+    # Iterate through the input answers by pairs
+    for i in range(0, len(answers), 2):
+        pair = answers[i:i + 2]
+
+        # Lookup the pair in the mapping dictionary and add the result to the encrypted_answers list
+        encrypted_answers.append(pair_mapping.get(pair, pair))
+
+    return ' '.join(encrypted_answers)
+
+
+# Encrypt the answers
+encrypted_result = encrypt_answers(answers)
+
+# Print the original, reduced, and restored answers
+original_answer = answers
+reduced_answer = encrypted_result
+
+print("Original Answer:", original_answer)
+print("Reduced Answer:", reduced_answer)
+
+# Create a reverse mapping dictionary
+reverse_pair_mapping = {v: k for k, v in pair_mapping.items()}
+
+def decrypt_answers(encrypted_answers):
+    decrypted_answers = []
+
+    # Split the encrypted answers string into a list
+    encrypted_list = encrypted_answers.split()
+
+    # Iterate through the encrypted list
+    for char in encrypted_list:
+        # Lookup the char in the reverse mapping dictionary and add the result to the decrypted_answers list
+        decrypted_answers.append(reverse_pair_mapping.get(char, char))
+
+    return ''.join(decrypted_answers)
+
+restored_answer = decrypt_answers(reduced_answer)
+print("Restored Answer:", restored_answer)
