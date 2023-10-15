@@ -1,0 +1,174 @@
+import random
+import re
+import math
+
+# 1. Recursive (Midterm): Calculating Factorial
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
+
+print("Factorial of 5:", factorial(5))
+
+# 2. Bubble Sort: Sorting a List
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+
+my_list = [64, 25, 12, 22, 11]
+bubble_sort(my_list)
+print("Bubble Sort:", my_list)
+
+# 3. Quick Sort: Sorting a List
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quick_sort(left) + middle + quick_sort(right)
+
+my_list = [64, 25, 12, 22, 11]
+sorted_list = quick_sort(my_list)
+print("Quick Sort:", sorted_list)
+
+# 4. Dictionary Sort: Sorting a Dictionary by Keys
+my_dict = {'apple': 3, 'banana': 1, 'cherry': 2}
+sorted_dict = dict(sorted(my_dict.items(), key=lambda item: item[0]))
+print("Dictionary Sort:", sorted_dict)
+
+# 5. Selection Sort: Sorting a List
+def selection_sort(arr):
+    for i in range(len(arr)):
+        min_index = i
+        for j in range(i + 1, len(arr)):
+            if arr[j] < arr[min_index]:
+                min_index = j
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+
+my_list = [64, 25, 12, 22, 11]
+selection_sort(my_list)
+print("Selection Sort:", my_list)
+
+# 6. Monte Carlo Simulation: Estimating Pi
+def monte_carlo_pi(num_points):
+    inside_circle = 0
+    for _ in range(num_points):
+        x, y = random.random(), random.random()
+        if x**2 + y**2 <= 1:
+            inside_circle += 1
+    return (inside_circle / num_points) * 4
+
+pi_estimate = monte_carlo_pi(1000000)
+print("Monte Carlo Pi Estimate:", pi_estimate)
+
+# 7. Regular Expression: Matching Email Addresses
+email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+text = "Contact us at support@example.com or info@test.co.uk"
+matches = re.findall(email_pattern, text)
+print("Email Addresses:", matches)
+
+
+# 1. Euclidean Distance
+def euclidean_distance(point1, point2):
+    return math.sqrt(sum((x - y) ** 2 for x, y in zip(point1, point2))
+
+point_a = (1, 2)
+point_b = (4, 6)
+distance = euclidean_distance(point_a, point_b)
+print("Euclidean Distance:", distance)
+
+# 2. Manhattan Distance
+def manhattan_distance(point1, point2):
+    return sum(abs(x - y) for x, y in zip(point1, point2))
+
+point_c = (1, 2)
+point_d = (4, 6)
+distance = manhattan_distance(point_c, point_d)
+print("Manhattan Distance:", distance)
+
+# 3. Heap Sort (Binary Tree)
+def heapify(arr, n, i):
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
+
+    if left < n and arr[i] < arr[left]:
+        largest = left
+
+    if right < n and arr[largest] < arr[right]:
+        largest = right
+
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
+
+def heap_sort(arr):
+    n = len(arr)
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(arr, n, i)
+    for i in range(n - 1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heapify(arr, i, 0)
+
+arr_heap = [12, 11, 13, 5, 6, 7]
+heap_sort(arr_heap)
+print("Heap Sort:", arr_heap)
+
+# 4. Insertion Sort (Linked List)
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+def insertion_sort_linked_list(head):
+    if head is None or head.next is None:
+        return head
+
+    sorted_head = None
+    current = head
+
+    while current:
+        next_node = current.next
+
+        if sorted_head is None or current.data < sorted_head.data:
+            current.next = sorted_head
+            sorted_head = current
+        else:
+            temp = sorted_head
+            while temp.next and current.data > temp.next.data:
+                temp = temp.next
+            current.next = temp.next
+            temp.next = current
+        current = next_node
+
+    return sorted_head
+
+# Create a linked list
+node1 = Node(3)
+node2 = Node(1)
+node3 = Node(2)
+node1.next = node2
+node2.next = node3
+
+sorted_linked_list = insertion_sort_linked_list(node1)
+while sorted_linked_list:
+    print("Insertion Sort Linked List:", sorted_linked_list.data)
+    sorted_linked_list = sorted_linked_list.next
+
+# 5. DNA and Text Sequence
+# Placeholder for DNA and Text Sequence
+
+# 6. Traveling Salesman Problem
+# Placeholder for Traveling Salesman Problem
+
+# 7. Baseball Elimination
+# Placeholder for Baseball Elimination
+
+# 8. Linear Programming
+# Placeholder for Linear Programming
